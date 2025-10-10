@@ -1,0 +1,44 @@
+Data with Baraa :
+
+Roadmap(SQL) -> https://www.mindmeister.com/app/map/2937557798?t=gEsd0gNKbd
+
+All Course Material -> https://www.blog.datawithbaraa.com/p/access-to-course-materials
+
+Download more db from https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms
+
+*	Query Data : Select, From, Where, Order By, Group By, Having, Distinct, Top
+
+*	DDL(Data Definition) : Create, Alter, Drop
+
+*	DML(Data Manipulation) : Insert, Update, Delete
+
+*	Filter Data : Comparison Operators(<>==..), Logical Operators(And, Or, Not), Between, In, Like
+
+
+*	Combining Data : 1. Joins - Inner, Left, Right, Outer, Left Anti, Right Anti, Full Anti, Cross Joins
+					 2. Sets - Union, Union All, Except, Intersect
+
+					 
+*	Row-Level Functions : String - Concat, Lower/Upper, Trim, Replace, Len, Left, Right, Substring
+						  Numeric - Round, Abs
+						  Data & Time
+						  Null Functions - Isnull, NullIf, Coalesce, Case when, Is null/Is not null/Is
+						  Case Statements
+
+
+*	Aggregate & Analytical Functions : Aggregate Fn's - Count, Sum, Avg, Min, Max
+									   Window Basics, Window Aggregate Fn
+									   Window Ranking Fn - Row_Number, Rank, Dense_Rank, NTile, Cume_Distc, Percent_Rank
+									   Window Value Fn - Lag, Lead, First_Value, Last_Value
+
+
+*	Advanced SQL Techniques : Subqueries - Min, Max, vs Joins
+							  CTE - Basics, Non-Recursive, Recursive, CTE vs Subqueries
+							  Views, CTAS Table & Temp Tables, Stored Procedure, Triggers
+
+
+*	Performance Optimization : Indexes, Partitions, Performance Tips
+
+*	AI & SQL
+
+*	SQL Projects : Data Warehousing Project, EDA Project, Advanced Data Analytics Project 

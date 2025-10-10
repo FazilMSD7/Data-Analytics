@@ -1,0 +1,22 @@
+Database -> Container that stores data, Handle large amt. of data, Secure instead of storing in files
+
+SQL -> Lang. used to talk to database
+
+DBMS -> Software that manages all req. and make priority which to execute first
+
+SQL Server -> Physical machine where Database lives
+
+Database Types -> 1. Realtional Db -> Tables where they are related(SQL) - MS SQL Server, MySQL, PostgreSQL
+				  2. Key-Value -> Pairs of Keys and Values like Dict(NoSQL) - Redis, DynamoDB
+				  3. Column Based -> Advanced, To search for data in col(NoSQL) - Apache Cassandra, Amazon Redshift
+				  4. Graph -> Realtionship btw objects(NoSQL) - Neo$j
+				  5. Document -> Fit in one page(NoSQL) - MongoDB
+				  
+Database Structure -> Server - Multiple db's(Sales) - Multiple Schemas(Columns : Orders, Customers)
+					  Primary Key : each table has unique col. eg: Id
+				      DataTypes : Numeric (INT, DECIMAL), Text (CHAR(fixed), VARCHAR(dynamic)), Data&Time (DATE, TIME)
+					  
+Types of SQL Commands -> 1. DDL(Data Definition Lang) - CREATE ALTER DROP
+						 2. DML(Data Manipulation Lang) - INSERT, UPDATE, DELETE
+						 3. DQL(Data Query Lang) - SELECT
+						 
