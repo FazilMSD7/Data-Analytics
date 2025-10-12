@@ -20,3 +20,14 @@ Types of SQL Commands -> 1. DDL(Data Definition Lang) - CREATE ALTER DROP
 						 2. DML(Data Manipulation Lang) - INSERT, UPDATE, DELETE
 						 3. DQL(Data Query Lang) - SELECT
 						 
+JOINS -> Inner, Left, Right, Full, Left Anti(Left + Where), Right Anti(Right + Where), Full Anti(Fill + Where), Cross Join
+					
+/* How to choose between Join Types	*/
+
+Only matching : INNER JOIN
+
+All Rows : 1. One side(master table) -> LEFT JOIN
+		   2. Both side(master both) -> FULL JOIN
+
+Only Unmatching : 1. One side(master table) -> LEFT ANTI JOIN(Left + Where)
+				  2. Both side(master both) -> FULL ANTI JOIN(Full + Where)
