@@ -1,1 +1,0 @@
-/* DDL (Data Definition Language)	*/
