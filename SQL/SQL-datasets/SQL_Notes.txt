@@ -21,6 +21,92 @@ Types of SQL Commands -> 1. DDL(Data Definition Lang) - CREATE ALTER DROP
 						 3. DQL(Data Query Lang) - SELECT
 						 
 ----------------------------------------------------------------------------------
+
+/*	QUERY DATA	*/
+
+-- use : specify database to use
+
+-- from clause : retrive data	
+					 
+-- where clause : filter data - where(condition)
+
+-- order by clause : sort data -> order by column_name asc/desc (by default asc)
+
+-- nested order by : order by multiple columns - it will sort for cols given
+
+-- group by : aggregate data -> combine rows with same valuesaggregate fn : sum, min, max, count, avg
+* note : all columns in select must be either aggregated or included in groupby
+	here -> if we select first_name it will throw error bcz it's not aggrgated or group by..	
+
+!! select country, first_name, sum(score) from customers group by country
+
+-- having clause : filter data after aggregation, can be used with group by - having(condition)
+/* note : diff. btw where are group by is where(for normal) before group by, but having(for aggregation) after group by	
+
+-- distinct clause : remove duplicates, after select
+/* note : don't use distinct unless it's necessary, it can slow down our query -> don't use if it's unique	
+
+-- top clause : limit your data
+
+-- ORDER OF EXECUTION : from -> where -> group by -> having -> select -> distinct -> order by -> top
+
+-- ORDER WE WRITE : select -> distinct -> top -> from -> where -> group by -> having -> order by
+
+/* Techniques to Remember : 
+1. Use ; atlast of query bcz in other db it's must like MySQL not needed for SQL server 
+	select * from table;
+	
+2. Static fixed values : means we can add our own values into database.
+	Eg : add Customer_type into customer table	
+
+3. Highlight and execute : to execute only a part of query
+just select only those to be executed by ur mouse
+
+----------------------------------------------------------------------------------
+
+/* DDL (Data Definition Language) --> create, alter, drop */
+
+-- create table : column_name, data type, constraint(pk_name primary key(col_name))
+
+-- alter table : used to modify DDL of table(add/edit_col..) 
+/* note :	col will be added at last only, not in middle or anywhere 
+	alter add, drop column	
+
+-- drop table : delete table from db
+
+/* DML (Data Manipulation Language) --> insert, update, delete */
+
+-- insert : add data to table(new table/existing table)
+
+/* note : insert values : insert into(col_name..) values(..)	
+	NOTE : if column_name not specified it'll insert values for all columns	
+		   no. of col. and values should match	
+		   multiple values can be inserted	
+		   can't insert null value for pk	
+		   order of col and values should match	
+		   columns not includeed will become null 
+		   
+-- insert using select : insert values from source table to target table
+
+-- update : change content of already existing row -> update table_name set col = value, where <condition>
+/* NOTE : if we are not using 'where' it'll update all rows
+		 insert(used to add new data) vs update(used to modify existing data)	
+		 
+-- delete : to remove rows from table
+/* NOTE : if we are not giving where condition, it'll delete all rows	
+
+-- truncate : same as delete but deletes whole rows without any condition and is faster
+
+----------------------------------------------------------------------------------
+
+/* Filtering Data - where operators : 
+1. Comparision Operators ( = != <> < > >= <= )
+2. Logical Operators ( and, or, not )
+3. Range Operator ( Between)
+4. Membership Operator ( In, Not In)
+5. Search Operator ( Like % _ )	*/
+
+----------------------------------------------------------------------------------
 				
 JOINS : Inner, Left, Right, Full, Left Anti(Left + Where), Right Anti(Right + Where), Full Anti(Fill + Where), Cross Join
 					
@@ -33,7 +119,6 @@ All Rows : 1. One side(master table) -> LEFT JOIN
 
 Only Unmatching : 1. One side(master table) -> LEFT ANTI JOIN(Left + Where)
 				  2. Both side(master both) -> FULL ANTI JOIN(Full + Where)
-
 
 ** Try using Left Join, Avoid using Right join for any ** 
 
@@ -84,5 +169,156 @@ NOTE : don't use '*' for select all bcz it will sometimes give issue but we can'
 	   so use col. name instead by select Table -> Right Click -> Select 1000 rows and copy paste the col_name	
        and include source table(new column) for better understanding
 	   
+----------------------------------------------------------------------------------
+
+-- Date and Time Functions :
+
+/* Date -> 2025/10/13,	Time -> 18 : 58 : 52,	Timestamp(DateTime) -> Date + Time
+
+-- GetDate() -> get current date and time
+
+-- Date and Time functions : 
+1. Part Extraction -> day, month, year, datepart, datename, datetrunc, eomonth
+2. Format of date : 13 October 2025 -> format, convert, caste
+3. Calculations -> dateAdd, dateDiff
+4. Validations : True/False -> IsDate
+
+** Part Extraction :
+
+-- DatePart : returns specific part of date as number -> datepart(part, date)
+
+-- DateName : returns specific part of date as name -> datename(part, date)
+
+-- DateTrunc : the remaining part after part will be resetted -> datetrunc(part, date) : Resetting part 
+
+-- EOMonth : returns last day of month
+
+** Format date :
+
+Date Format : 'YYYY - MM - dd' , 'HH - mm - ss'
+
+--	Formatting : Changing the format of value from one to another, how data looks.
+		DATE:	1. FORMAT -> Eg : 'mm/dd/yy' - 13/10/25, 'mmm yyyy' - Oct 2025		: format(value, format)
+				2. CONVERT -> give style number Eg : 6 -> 20 Aug 25, 112 -> 20250820	: Convert value to diff. data type.  convert(data_type, value)
+
+		NUMBER:	1. FORMAT -> N - 1,234,567.89, C - dollar 1,234,567.89
+				
+--	Casting : Change datatype from one to another, Eg: Date to String
+		CAST() : Convert a value to diff. data type. cast(value as data_type)
+		CONVERT()
+
+** Date Calculations : DateAdd(), DateDiff()
+
+-- DateAdd : Add/Subtract specific time interval to/from a date. DATEADD(part, interval, date) : DATEADD(year,2,OrderDate)
+
+-- DateDiff : Diff btw two dates. DATAEDIFF(part, start_date, end_date) : DATEDIFF(year, OrderDate, ShippedDate)
+
+-- LAG : To access previous value from row : lag(col_name) over (order by order_column).	LAG is a window fn
+Use Case -> Time Gap Analysis
+
+** -- Date Validation : 
+
+-- ISDATE() - chk whether a value is a date, return 1 or 0
+
+----------------------------------------------------------------------------------
+
+-- String Functions & Numeric Functions :
+
+Functions : a built in sql code that accepts an : input value - process it  - returns an output value
+
+1. Single row function : single value i/o. Eg: Maria.UPPER() -> maria
+2. Multi row function : multiple values, multiple inp. and single output. Eg: SUM(100,200..) -> 300
+
+-- Nested Functions : Function used inside another function. Eg: LOWER(LEFT('Maria',2)) -> ma
+
+/* TYPES OF FUNCTIONS :
+1. Single row function : String, Numeric, Data&Time, Null functions
+2. Multi row functions : Aggregate, Window functions
+
+** String Functions : 
+
+Manipulate - CONCAT, UPPER, LOWER, TRIM, REPLACE
+Calculations - LEN
+String Extraction -> LEFT, RIGHT, SUBSRING
+
+-- CONCAT : combine multiple strings into one
+
+-- UPPER/LOWER
+
+-- TRIM : removes leaing and trailing spaces
+
+-- REPLACE : replace specific character
+
+-- LEFT/ RIGHT : extract specific no. of chars from start/end
+
+-- SUBSTRING : extract part of string from specific position -> SUBSTRING(Value, Start, Length)
+
+** Numeric Functions :
+
+-- ROUND & ABS(converts negative into positive)
+
+----------------------------------------------------------------------------------
+
+-- NULL FUNCTIONS :
+
+1. Replace Values :
+			ISNULL/ Coalesce :	Null -> Value	: Eg : NULL -> 40
+			NULL IF :			Value -> Null	:  Eg : 40 -> NULL
+
+2. To check for Nulls :
+			IS NULL/ IS NOT NULL : True/False
+
+-- ISNULL : ISNULL(value,replacement_value) 
+
+-- COALESCE : returns first non-null value from list : COALESCE(val1, val2, val3..)
+/* Note : Go with COALESCE bcz it's standard in every db
+
+--> UseCase : Handle Null before : Data Aggregation, Mathematical Op., Joins, Sorting
+
+-- NULLIF : compare two value, return NULL if equal and First Value if not equal
+
+--> UseCase : Before : Div by 0
+
+-- IS NULL / IS NOT NULL : returns True/False
+
+--> UseCase : Filtering
+
+-- IS NULL : Anti Joins - Finding unmatched rows btw two tables - Left/Right anti join
+
+-- NULL(unknown) vs Empty('') vs Space(' ')
+/* note :with is a CTE fn: so it'll be available for only that query, 
+if u need to use later create again or create TEMP table (#exy)
+
+
+**  Data Policy : Set of rules that defines how data should be defined
+
+1. Only use nulls and empty strings avoid using balnk spaces : TRIM(Leading and Trailing spaces removed)	
+2. Only use null avoid empty and blank spaces : NULLIF()
+3. Use only default value avoid using nulls, empty and blank strings : COALESCE(replace those with anything)
+
+Try using : NULLIF or COALESCE
+
+----------------------------------------------------------------------------------
+
+-- CASE STATEMENTS
+
+Allows to write condition statements and returns value when met	
+** Syntax : Case	when 'condition' then 'result' .. else 'result'		End
+
+	If we don't write else it will return 'Null'
+	Execution stops when 1st condition is met
+
+-->	Use case :	Data Transformation -> Categorizing Data, 
+									   Map values : transform from one value to another, 
+									   Quick form : Instead of repeating col. name every time use col. after CASE, Only for = 'operator'
+									   Handling Nulls : replace null with specific value
+									   Conditional Aggregation : apply only on subsets of data that fulfill certain conditions
+									   
+/* Rules : Data type of result must be matching	
+
+----------------------------------------------------------------------------------
+
+-- Aggregation(Count, Sum, Min, Max, Avg) & Analytical Functions(Window)
+
 ----------------------------------------------------------------------------------
 
