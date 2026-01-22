@@ -210,3 +210,63 @@ Error Handling : BEGIN TRY
 				BEGIN CATCH
 					Print ERROR_MESSAGE(SQL Statements to handle error)
 				END CATCH
+*/
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+-- TRIGGERS :
+/* Special stored procedure(set of statements) that automatically runs in response to specific event on a table or view.
+
+DML triggers -> Insert, Update, Delete
+DDL triggers -> CREATE, ALTER, DROP
+LOGGON
+
+~ DML triggers Types :
+  After - Runs after event
+  Instead of - Runs during event
+*/
+
+/*  Usecase :
+1. Logging -> Eg. Audit Logs(After an event just trigger automatically who executed like that in table)		
+
+Syntx : Create Trigger Trigger_name on TableName
+		After Insert | Update | Delete	(when trigger gonna happen)
+		as
+		BEGIN
+			-- SQL Statements
+		END
+
+*/
+
+-- Step 1 : Create Log Table
+Create table Sales.EmployeeLogs(
+	LogID int Identity(1,1) primary key,
+	EmployeeId int,
+	LogMessaage Varchar(255),
+	LogDate date
+)
+
+-- Step 2 : Cteate Trigger on Employees Table
+Create Trigger tr_AfterInsertEmployee on Sales.employees
+After insert
+as
+begin
+	insert into Sales.EmployeeLogs(EmployeeId, LogMessaage, LogDate)
+	select
+		EmployeeID,
+		'New Employee Added = ' + Cast(EmployeeId as varchar),
+		GETDATE()
+	from Inserted
+End;
+
+/* INSERTED : virtual table that holds a copy of rows that are being inserted into the target table */
+
+-- Step 3 : Insert New Data in employees
+select * from Sales.EmployeeLogs
+
+insert into sales.Employees
+values
+(6, 'Maria', 'John', 'HR', '1998-01-12', 'F', 80000, 3)
+
+-- Now check Triggers table
+select * from Sales.EmployeeLogs
